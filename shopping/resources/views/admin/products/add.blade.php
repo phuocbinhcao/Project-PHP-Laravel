@@ -3,12 +3,12 @@
 @extends('layouts.admin')
 
 @section('title')
-<title>Trang chu</title>
+<title>Trang chủ</title>
 @endsection
 
 @section('css')
 <link href="{{ asset('vendors/select2/select2.min.css') }}" rel="stylesheet" />
-<link href="{{ asset('admin/product/add/add.css') }}" rel="stylesheet" />
+<link href="{{ asset('admins/product/add/add.css') }}" rel="stylesheet" />
 @endsection
 
 @section('content')
@@ -16,7 +16,17 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     @include('partials.content-header',['name'=> 'product', 'key' => 'Add'])
-    <!-- /.content-header -->
+    <div class="col-md-12">
+        <!-- @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif -->
+    </div>
 
     <!-- Main content -->
     <form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data">
@@ -26,45 +36,73 @@
                     <div class="col-md-6">
                         @csrf
                         <div class="form-group">
-                            <label>Ten san pham</label>
-                            <input type="text" class="form-control" name="name" placeholder="Nhap ten san pham">
+                            <label>Tên sản phẩm</label>
+                            <input type="text"
+                            class="form-control @error('name') is-invalid @enderror"
+                            name="name"
+                            placeholder="Nhập tên sản phẩm"
+                            value="{{ old('name') }}"
+                            >
+                            @error('name')
+                                <div class="alert text-danger py-0 px-0">{{ $message }}</div>
+                            @enderror
 
                         </div>
                         <div class="form-group">
-                            <label>Gia san pham</label>
-                            <input type="text" class="form-control" name="price" placeholder="Nhap gia san pham">
+                            <label>Giá sản phẩm</label>
+                            <input type="text" 
+                            class="form-control @error('price') is-invalid @enderror" 
+                            name="price" 
+                            placeholder="Nhập giá sản phẩm"
+                            value="{{ old('price') }}"
+                            >
+                            @error('price')
+                                <div class="alert text-danger py-0 px-0">{{ $message }}</div>
+                            @enderror
 
                         </div>
                         <div class="form-group">
-                            <label>Anh dai dien</label>
-                            <input type="file" class="form-control-file" name="feature_image_path">
+                            <label>Ảnh đại diện</label>
+                            <input type="file" 
+                            class="form-control-file" 
+                            name="feature_image_path">
                         </div>
 
                         <div class="form-group">
-                            <label>Anh chi tiet san pham</label>
+                            <label>Ảnh chi tiết sản phẩm</label>
                             <input type="file" multiple class="form-control-file" name="image_path[]">
                         </div>
 
                         <div class="form-group">
-                            <label>Chon danh muc</label>
-                            <select class="form-control select2_init" name="category_id">
-                                <option value="">Chon danh muc</option>
+                            <label>Chọn danh mục</label>
+                            <select class="form-control select2_init @error('category_id') is-invalid @enderror" name="category_id">
+                                <option value="">Chọn danh mục</option>
                                 {!! $htmlOption!!}
                             </select>
+                            @error('category_id')
+                                <div class="alert text-danger py-0 px-0">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group">
-                            <label>Nhap tags cho san pham</label>
+                            <label>Nhập tags cho sản phẩm</label>
                             <select name="tags[]" class="form-control tags_select_choose" multiple="multiple">
 
                             </select>
                         </div>
 
-                        
+
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="">Nhap noi dung</label>
-                            <textarea class="form-control tinymce_editor_init" name="contents" rows="8"></textarea>
+                            <label for="">Nhập nội dung</label>
+                            <textarea class="form-control tinymce_editor_init @error('contents') is-invalid @enderror" 
+                            name="contents" 
+                            rows="8">
+                            {{ old('contents') }}
+                            </textarea>
+                            @error('contents')
+                                <div class="alert text-danger py-0 px-0">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-md-12">

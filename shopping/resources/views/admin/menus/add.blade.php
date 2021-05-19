@@ -23,9 +23,12 @@
                         <div class="form-group">
                             <label>Ten menu</label>
                             <input type="text" 
-                            class="form-control" 
+                            class="form-control @error('name') is-invalid @enderror" 
                             name="name"
                             placeholder="Nhap ten menu">
+                            @error('name')
+                                <div class="alert text-danger py-0 px-0">{{ $message }}</div>
+                            @enderror
 
                         </div>
 

@@ -15,6 +15,9 @@ use App\Tag;
 use App\ProductTag;
 use DB;
 use Illuminate\Support\Facades\Log;
+use App\Http\Requests\ProductAddRequest;
+
+
 
 class AdminProductController extends Controller
 {
@@ -49,7 +52,7 @@ class AdminProductController extends Controller
         $htmlOption = $recusive->categoryRecusive($parentId);
         return $htmlOption;
     }
-    public function store(Request $request){
+    public function store(ProductAddRequest $request){
         try{
             DB::beginTransaction();
             $dataProductCreate = [
@@ -152,6 +155,24 @@ class AdminProductController extends Controller
         }catch(\Exception $exception){
             DB::rollBack();
             Log::error('Message: ' . $exception->getMessage() . 'Line' . $exception->getLine());
+        }
+    }
+    public function delete($id){
+        try{
+            $this->product->find($id)->delete();
+            return response()->json([
+                'code' => 200,
+                'message' => 'success'
+            ]);
+        
+        }catch(\Exception $exception){
+            
+            Log::error('Message: ' . $exception->getMessage() . 'Line' . $exception->getLine());
+            return response()->json([
+                'code' => 500,
+                'message' => 'fail',
+
+            ]);
         }
     }
 }

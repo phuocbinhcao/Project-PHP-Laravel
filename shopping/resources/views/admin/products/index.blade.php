@@ -7,11 +7,12 @@
 @endsection
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('admin/product/index/list.css')}}">
+<link rel="stylesheet" href="{{ asset('admins/product/index/list.css')}}">
 @endsection
 
 @section('js')
-
+<script src="{{ asset('vendors/sweetAlert2/sweetalert2@11.js')}}"></script>
+<script src="{{ asset('admins/product/index/list.js')}}"></script>
 @endsection
 
 @section('content')
@@ -51,7 +52,9 @@
                                 <td>
                                     <a href="{{ route('products.edit', ['id' => $productItem->id]) }}" 
                                     class="btn btn-success">Edit</a>
-                                    <a href="" class="btn btn-danger">Delete</a>
+                                    <a href="" 
+                                    data-url="{{ route('products.delete', ['id' => $productItem->id]) }}"
+                                    class="btn btn-danger action_delete">Delete</a>
                                 </td>
                             </tr>
                             @endforeach
