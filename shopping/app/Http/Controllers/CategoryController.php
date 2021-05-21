@@ -6,7 +6,6 @@ use App\Category;
 use Illuminate\Http\Request;
 use App\Components\Recusive;
 
-
 class CategoryController extends Controller
 {
 

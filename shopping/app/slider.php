@@ -3,8 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\softDeletes;
 
-class slider extends Model
+class Slider extends Model
 {
-    protected $guarded = [];
+    use softDeletes;
+    protected $guarded =[];
 }

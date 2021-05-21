@@ -6,6 +6,15 @@
 <title>Trang chu</title>
 @endsection
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('admins/slider/index/index.css') }}">
+@endsection
+
+@section('js')
+<script src="{{ asset('vendors/sweetAlert2/sweetalert2@11.js')}}"></script>
+<script src="{{ asset('admins/slider/index/index.js')}}"></script>
+@endsection
+
 @section('content')
 
 <div class="content-wrapper">
@@ -32,29 +41,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
                             @foreach($sliders as $slider)
+                            
                             <tr>
                                 <th scope="row">{{ $slider->id }}</th>
-                                <td>{{ $slider->name }}</td>
+                                <td>{{ $slider->id }}</td>
                                 <td>{{ $slider->description }}</td>
                                 <td>
-                                    <img src="{{ $slider->image_path}}" alt="">
+                                    
+                                    <img class="image_slider" src="{{ $slider->image_path }}" alt="">
                                 </td>
                                 <td>
-                                    <a href=""
+                                    <a href=" {{ route('slider.edit', ['id' => $slider->id]) }}"
                                         class="btn btn-success">Edit</a>
                                     <a href=""
-                                        class="btn btn-danger">Delete</a>
+                                    data-url="{{ route('slider.delete', ['id' => $slider->id]) }}"
+                                        class="btn btn-danger action_delete">Delete</a>
                                 </td>
                             </tr>
-                            @endforeach
-
+                           @endforeach
                         </tbody>
                     </table>
                 </div>
                 <div class="col-md-12">
-                    {{ $sliders->links() }}
+                   {{ $sliders->links() }}
                 </div>
             </div>
 
