@@ -7,10 +7,11 @@ use App\Http\Requests\SliderAddRequest;
 use App\Traits\StorageImageTrait;
 use App\Slider;
 use Illuminate\Support\Facades\Log;
+use App\Traits\DeleteModelTrait;
 
 class SliderAdminController extends Controller
 {
-    use StorageImageTrait;
+    use StorageImageTrait,DeleteModelTrait ;
     private $slider;
     public function __construct(Slider $slider){
         $this->slider = $slider;
@@ -69,14 +70,6 @@ class SliderAdminController extends Controller
     }
 
     public function delete($id){
-        try{
-            $this->slider->find($id)->delete();
-            return response()->json([
-                'code' => 200,
-                'message' => 'Delete success'
-            ]);
-        } catch(\Exception $exception){
-            Log::error('Loi: ' . $exception->getMessage() . '--Line: ' . $exception->getLine());
-        }
+        return $this->deleteModelTrait($id, $this->slider);
     }
 }
