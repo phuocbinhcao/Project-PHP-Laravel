@@ -20,7 +20,7 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    @include('partials.content-header',['name'=> 'User', 'key' => 'Add'])
+    @include('partials.content-header',['name'=> 'User', 'key' => 'Edit'])
     <!-- /.content-header -->
 
     <!-- Main content -->
@@ -28,14 +28,14 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6">
-                    <form action="{{ route('users.store') }}" method ="post" enctype="multipart/form-data">
+                    <form action="{{ route('users.update', ['id' => $user->id]) }}" method ="post" enctype="multipart/form-data">
                     @csrf
                         <div class="form-group">
                             <label>Tên</label>
                             <input type="text" 
                             class="form-control" 
                             name="name"
-                            value="{{ old('name') }}"
+                            value="{{ $user->name }}"
                             placeholder="Nhập tên">
                         </div>
                         <div class="form-group">
@@ -43,7 +43,7 @@
                             <input type="email" 
                             class="form-control" 
                             name="email"
-                            value="{{ old('email') }}"
+                            value="{{ $user->email }}"
                             placeholder="Nhập tên email">
                         </div>
                         <div class="form-group">
@@ -51,7 +51,6 @@
                             <input type="password" 
                             class="form-control" 
                             name="password"
-                            value="{{ old('password') }}"
                             placeholder="Nhập password">
                         </div>
                         <div class="form-group">
@@ -59,7 +58,12 @@
                             <select name="role_id[]" class="form-control select2_init" multiple>
                                 <option value=""></option>
                                 @foreach($roles as $role)
-                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                    <option 
+                                    {{ $rolesOfUser->contains('id', $role->id) ? 'selected' : "" }}
+                                    value="{{ $role->id }}" 
+                                    >
+                                    {{ $role->name }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>

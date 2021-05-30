@@ -7,7 +7,7 @@
 @endsection
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('admins/slider/index/index.css') }}">
+
 @endsection
 
 @section('js')
@@ -19,7 +19,7 @@
 
 <div class="content-wrapper">
 
-    @include('partials.content-header',['name'=> 'User', 'key' => 'List'])
+    @include('partials.content-header',['name'=> 'Role', 'key' => 'Add'])
 
 
 
@@ -27,30 +27,31 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md 12">
-                    <a href=" {{ route('users.create') }}" class="btn btn-success float-right m-2">Add</a>
+                    <a href="{{ route('roles.create') }}" class="btn btn-success float-right m-2">Add</a>
                 </div>
                 <div class="col-md-12">
                     <table class="table">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Tên</th>
-                                <th scope="col">Email</th>
+                                <th scope="col">Tên vai trò</th>
+                                <th scope="col">Mô tả vai trò</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($users as $user)
+                            @foreach($roles as $role)
                             
                             <tr>
-                                <th scope="row">{{ $user->id }}</th>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
+                                <th scope="row">{{ $role->id }}</th>
+                                <td>{{ $role->name }}</td>
+                                <td>{{ $role->display_name }}</td>
+                                
                                 <td>
-                                    <a href="{{ route('users.edit', ['id' => $user->id]) }}"
+                                    <a href=" "
                                         class="btn btn-success">Edit</a>
                                     <a href=""
-                                    data-url="{{ route('users.delete', ['id' => $user->id]) }}"
+                                    data-url=""
                                         class="btn btn-danger action_delete">Delete</a>
                                 </td>
                             </tr>
@@ -59,7 +60,7 @@
                     </table>
                 </div>
                 <div class="col-md-12">
-                   {{ $users->links() }}
+                   {{ $roles->links() }}
                 </div>
             </div>
 
