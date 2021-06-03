@@ -37,8 +37,12 @@
                                 <th scope="row">{{ $category->id}}</th>
                                 <td>{{ $category->name }}</td>
                                 <td>
+                                @can('category_edit')
                                     <a href="{{ route('categories.edit',['id'=> $category->id]) }}" class="btn btn-success">Edit</a>
+                                        @endcan
+                                @can('category_delete')
                                     <a href="{{ route('categories.delete',['id'=> $category->id]) }}" class="btn btn-danger">Delete</a>
+                                    @endcan
                                 </td>
                             </tr>
                             @endforeach

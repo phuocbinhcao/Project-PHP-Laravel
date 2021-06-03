@@ -18,21 +18,21 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    @include('partials.content-header',['name'=> 'Roles', 'key' => 'Add'])
+    @include('partials.content-header',['name'=> 'Roles', 'key' => 'Edit'])
     <!-- /.content-header -->
 
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <form action="{{ route('roles.store') }}" method="post" enctype="multipart/form-data" class="w-100">
+                <form action="{{ route('roles.update', ['id' => $role->id]) }}" method="post" enctype="multipart/form-data" class="w-100">
                     <div class="col-md-12">
 
                         @csrf
                         <div class="form-group">
                             <label>Tên vai trò</label>
                             <input type="text" class="form-control " name="name"
-                                value="{{ old('name') }}" placeholder="Nhập tên vai trò">
+                                value="{{ $role->name }}" placeholder="Nhập tên vai trò">
                             
                         </div>
 
@@ -40,7 +40,7 @@
                             <label>Mô tả va trò</label>
                             <textarea class="form-control " name="display_name"
                                 rows="3">
-                                {{ old('display_name') }}
+                                {{ $role->display_name }}
                             </textarea>
                             
                         </div>
@@ -51,9 +51,8 @@
                             Checkall
                         </label>
 
-                    </div> 
+                    </div>
                     <div class="col-md-12">
-                    
                         
                     @foreach($permissionsParent as $permissionsParentItem)
                         <div class="col-md-12 card border-primary mb-3">
@@ -70,6 +69,7 @@
                                 <h5 class="card-title">
                                     <label for="">
                                         <input type="checkbox" name="permission_id[]"
+                                        {{ $permissionsChecked->contains('id', $permissionsChildrentItem->id) ? 'checked' : '' }}
                                         class="checkbox_childrent" 
                                         value="{{ $permissionsChildrentItem->id }}">
                                     </label>
